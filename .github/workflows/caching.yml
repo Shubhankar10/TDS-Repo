@@ -9,9 +9,15 @@ jobs:
   build-with-cache:
     runs-on: ubuntu-latest
     steps:
+    
+      - name: Checkout repository
+        uses: actions/checkout@v4
 
       - name: Set up uv
         uses: astral-sh/setup-uv@v5
+
+      - name: Create virtual environment
+        run: uv venv
 
       - name: Cache uv dependencies
         id: cache-uv
@@ -31,6 +37,5 @@ jobs:
           else
             echo "Cache miss. Dependencies were installed and cache will be saved."
           fi
-
-
-# trigger cache  tets 3
+          
+# trigger cache tets
