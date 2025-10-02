@@ -2,7 +2,7 @@ name: CI with Caching
 
 on:
   push:
-    branches: [ "main" ]
+    branches: ["main"]
   workflow_dispatch:
 
 jobs:
@@ -15,10 +15,11 @@ jobs:
 
       - name: Set up uv
         uses: astral-sh/setup-uv@v5
-      
+
       - name: Create virtual environment
         run: uv venv
 
+      # Restore (or prime) cache
       - name: Cache uv dependencies
         id: cache-uv
         uses: actions/cache@v4
@@ -31,6 +32,7 @@ jobs:
 
       - name: prime-cache-175db45
         run: |
+          echo "cache-hit=${{ steps.cache-uv.outputs.cache-hit }}"
           if [[ "${{ steps.cache-uv.outputs.cache-hit }}" == "true" ]]; then
             echo "Cache hit! Dependencies were restored."
           else
