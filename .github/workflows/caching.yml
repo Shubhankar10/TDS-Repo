@@ -8,7 +8,6 @@ on:
 jobs:
   build-with-cache:
     runs-on: ubuntu-latest
-
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
@@ -24,12 +23,12 @@ jobs:
         uses: actions/cache@v4
         with:
           path: ~/.cache/uv
-          key: cache-175db45   # ← exact key required
+          key: cache-175db45
 
       - name: Install dependencies
         run: uv pip install -r requirements.txt
 
-      - name: prime-cache-175db45   # ← exact step name required
+      - name: prime-cache-175db45
         run: |
           echo "cache-hit=${{ steps.cache-uv.outputs.cache-hit }}"
           if [[ "${{ steps.cache-uv.outputs.cache-hit }}" == "true" ]]; then
